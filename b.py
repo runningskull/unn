@@ -48,6 +48,13 @@ def deploy():
     pass
 
 
+_serve = cmds.add_parser('serve', aliases=('-',))
+_serve.set_defaults(func=serve)
+
+def serve():
+    pass
+
+
 args = parser.parse_args()
 
 
