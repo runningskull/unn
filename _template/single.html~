@@ -1,0 +1,6 @@
+{% block content %}
+
+{{ post }}
+
+{% endblock %}
+

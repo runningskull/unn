@@ -1,6 +1,7 @@
 Date: {date}
+Tags: 
 
-## Put Title Here
+# {title}
 
 Start writing here
 

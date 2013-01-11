@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+
+    <ul>
+    {% for post in posts %}
+        <li>
+            <small>{{ post.Date.strftime('%d/%m/%y') }}</small>
+            <a href="/{{ post.Slug }}.html">{{ post.Title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
+
