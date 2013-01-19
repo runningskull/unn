@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
-import sys, shutil, subprocess
+import logging
+logging.getLogger('scss').addHandler(logging.StreamHandler())
+
+import os, sys, shutil, subprocess
 import cli, config, scss
 from markdown import markdown
 from datetime import datetime
@@ -27,15 +30,16 @@ def draft(slug):
     if _exists('drafts') or _exists('posts'):
         cli.EXIT('That slug already exists!')
 
-    content = open('template/_new_draft.md').read().format({
-        'date': datetime.strftime(DATE_FORMAT),
-        'title': _unslug(slug)
-    })
+    content = open('_template/_new_draft.md').read().format(
+        date = datetime.now().strftime(DATE_FORMAT),
+        title = _unslug(slug)
+    )
 
     filename = 'drafts/{}.md'.format(slug)
     with open(filename, 'w') as _draft:
         _draft.write(content)
-    subprocess.call(config.editor.format(filename))
+    cmd = config.editor.format(join(os.getcwd(), filename))
+    subprocess.call(cmd, shell=True)
 
 
 @cli.command
@@ -45,6 +49,9 @@ def publish(slug):
 
     if exists('posts/{}.md'.format(slug)):
         cli.EXIT('That post already exists!')
+
+    shutil.move('drafts/{}.md'.format(slug), 'posts/{}.md'.format(slug))
+    build()
 
 
 @cli.command
@@ -62,7 +69,7 @@ def build():
 
     def render_single(slug, md):
         ctx = dict(headers[slug], **{'post_html': markdown(md)})
-        write_file('index', tpl_single.render(ctx))
+        write_file(slug, tpl_single.render(ctx))
 
     def render_index():
         ctx = {'posts': [dict(headers[x[0]], **{'Slug':x[0]}) for x in chron_order]}
@@ -90,6 +97,7 @@ def build():
     chron_order = sorted(chron_order, key=lambda tup: tup[1])
     render_index()
     render_css()
+    print("BUILT!")
     
 
 

@@ -1,19 +1,30 @@
 <!doctype html>
 <html>
 <head>
-    <title>I'm J.R. - {% block title %}{{ Title }}{% endblock %}</title>
+    <script type="text/javascript" src="//use.typekit.net/pwg1eie.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+    <title>Hi. I'm J.R. - {% block title %}{{ Title }}{% endblock %}</title>
     <link rel="stylesheet" href="/style.css" type="text/css" media="screen">
 </head>
 
 <body>
-    <header>
-        <h1>I'm J.R.</h1>
-    </header>
+    <div id="wrapper">
+        <header>
+            <h1><a id="go-home" href="/">Hi, I'm J.R.</a></h1>
+        </header>
 
-    {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
 
-    <footer>
-        &gt; /dev/null
-    </footer>
+        <footer id="bottom">
+            &gt; /dev/null
+        </footer>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            document.getElementById('go-home').className = 'fade'
+        }, 5000);
+    </script>
 </body>
 

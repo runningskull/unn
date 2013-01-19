@@ -1,4 +1,144 @@
+@import "compass";
+@import "compass/reset";
+
+$body-bg:   #fdfdfe;
+$font-head: "apertura", Helvetica, sans-serif;
+$font-body: "freight-text-pro", Georgia, serif;
+
+$width:     800px;
+
+$weight-heading:    700;
+$weight-normal:     400;
+
+$color-head:    saturate(lighten(#161D25, 8%), 30%);
+$color-body:    #334;
+$color-faint:   mix($color-head, $body-bg, 50%);
+
+
+@mixin _transition($arg) {
+            transition: $arg;
+    -webkit-transition: $arg;
+       -moz-transition: $arg;
+         -o-transition: $arg;
+}
+
+
 body {
-    background: red;
+    background:     $body-bg url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAIElEQVQIW2P8DwSMQMAABWA+iA2TgNGoKqA6sKvEZiYAYjkj/opu0ZUAAAAASUVORK5CYII=);
+    font-family:    $font-body;
+    font-weight:    $weight-normal;
+    font-size:      23px;
+    color:          #334;
+    line-height:    1.5em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @include text-shadow(1px 1px 0 #fff);
+    font-family:    $font-head;
+    font-weight:    $weight-heading;
+    letter-spacing: -1px;
+    color:          $color-head;
+}
+
+h1 {
+    font-size:      2em;
+    word-spacing:   3px;
+}
+
+header {
+    @include box-shadow(0 1px 0 #fff);
+    margin:         1em 0 2.5em 0;
+    font-size:      0.75em;
+    border-bottom:  1px solid #eee;
+
+    h1 {
+        font-family:    $font-body;
+        line-height:    2em;
+        color:          $color-faint;
+        font-weight:    400;
+
+        a {
+            @include _transition(color 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955));
+            text-decoration:    none;
+            color:              $color-faint;
+
+            &::before {
+                content:    '&#9875;';
+                display:    block;
+                float:      left;
+                margin-left:    -10px;
+            }
+
+            &.fade:hover, &:hover {
+                color:              mix(#00f, $color-head, 50%);
+                text-decoration:    underline;
+            }
+
+            &.fade {
+                @include _transition(all 1s);
+                color:  mix($color-faint, $body-bg, 32%);
+            }
+        }
+    }
+}
+
+#wrapper {
+    width:  800px;
+    margin: 0 auto;
+}
+
+#post {
+    h1 {
+        margin-bottom:  0.5em;
+    }
+}
+
+#post-list {
+    overflow:   visible;
+
+    li {
+        margin-bottom:  0.75em;
+        position:       relative;
+    }
+
+    a {
+        @include border-radius(4px);
+
+        font-family:    $font-head;
+        font-size:      1.35em;
+        color:          $color-body;
+
+        &:hover {
+            @include _transition(all 0.25s cubic-bezier(0.455, 0.030, 0.515, 0.955));
+            background:         rgba(#000, 0.03);
+            text-decoration:    none;
+            margin-left:        2px;
+        }
+
+        &:visited {
+            color:  mix(#f0f, $color-body, 20%);
+        }
+    }
+
+    small {
+        @include inline-block;
+        font-size:      0.75em;
+        width:          80px;
+        padding-right:  20px;
+        text-align:     right;
+        color:          mix($color-faint, $body-bg, 50%);
+        position:       absolute;
+        left:           -100px;
+    }
+}
+
+#bottom {
+    @include box-shadow(0 1px 0 #fff);
+    border-top:     1px solid #eee;
+    margin-top:     2em;
+    font-size:      0.75em;
+    text-align:     center;
+    color:          lighten($color-faint, 32%);
+    font-family:    "Source Code Pro", "Monaco", monospace;
 }
 
