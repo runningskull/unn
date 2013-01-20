@@ -1,7 +1,7 @@
 @import "compass";
 @import "compass/reset";
 
-$body-bg:   #fdfdfe;
+$body-bg:   #fcfcfd;
 $font-head: "apertura", Helvetica, sans-serif;
 $font-body: "freight-text-pro", Georgia, serif;
 
@@ -28,7 +28,7 @@ body {
     font-family:    $font-body;
     font-weight:    $weight-normal;
     font-size:      23px;
-    color:          #334;
+    color:          $color-body;
     line-height:    1.5em;
 }
 
@@ -41,37 +41,62 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
+    @include text-shadow(1px 1px 0 #fff);
     font-size:      2em;
     word-spacing:   3px;
 }
 
+img {
+    max-width:      $width;
+    margin-top:     1em;
+    margin-bottom:  1em;
+}
+
 header {
     @include box-shadow(0 1px 0 #fff);
+
     margin:         1em 0 2.5em 0;
     font-size:      0.75em;
     border-bottom:  1px solid #eee;
+    overflow:       visible;
+
+    position:       relative;
 
     h1 {
         font-family:    $font-body;
         line-height:    2em;
         color:          $color-faint;
         font-weight:    400;
+        overflow:       visible;
 
         a {
-            @include _transition(color 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955));
             text-decoration:    none;
             color:              $color-faint;
 
-            &::before {
-                content:    '&#9875;';
-                display:    block;
-                float:      left;
-                margin-left:    -10px;
+            &:active, &:visited {
+                color:  $color-faint;
             }
 
-            &.fade:hover, &:hover {
-                color:              mix(#00f, $color-head, 50%);
+            &:hover, &.fade:hover {
+                @include _transition(color 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955));
+
+                color:              $color-head;
                 text-decoration:    underline;
+
+                &:before {
+                    content:        "";
+                    background:     url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAVdEVYdENyZWF0aW9uIFRpbWUAMS8yMC8xM0XKGmUAAACGSURBVCiRxdAtEoAgEIbhD8eDcQ+CZC5ANtJMZA3cQ0+mxV9w1x0NbnPkfWQFmAkxdSGmjjujmLgH0KyPg3fGioEs3uYWKQAiJpEL8BDfIjsgjAtEvYgviAox2VOshfG4Ifk/mCW1d2bvKuEXyamZdyOOq2oQ63HA5J1pASDEpCjg8wr/AwsXYTFo1kr4mAAAAABJRU5ErkJggg==) left center no-repeat;
+                    display:        block;
+
+                    height:         16px;
+                    width:          16px;
+                    left:           0;
+                    margin-left:    -36px;
+                    top:            50%;
+                    margin-top:     -8px;
+
+                    position:       absolute;
+                }
             }
 
             &.fade {
@@ -83,8 +108,9 @@ header {
 }
 
 #wrapper {
-    width:  800px;
-    margin: 0 auto;
+    width:      800px;
+    margin:     0 auto;
+    overflow:   visible;
 }
 
 #post {
@@ -98,25 +124,21 @@ header {
 
     li {
         margin-bottom:  0.75em;
+        padding-bottom: 0.675em;
         position:       relative;
+        overflow:       visible;
     }
 
     a {
-        @include border-radius(4px);
-
-        font-family:    $font-head;
-        font-size:      1.35em;
-        color:          $color-body;
+        font-family:        $font-head;
+        font-weight:        500;
+        font-size:          1.35em;
+        color:              $color-head;
+        border-bottom:      1px dashed mix($color-head, $body-bg, 20%);
+        text-decoration:    none;
 
         &:hover {
-            @include _transition(all 0.25s cubic-bezier(0.455, 0.030, 0.515, 0.955));
-            background:         rgba(#000, 0.03);
-            text-decoration:    none;
-            margin-left:        2px;
-        }
-
-        &:visited {
-            color:  mix(#f0f, $color-body, 20%);
+            border-style:           solid;
         }
     }
 
@@ -126,9 +148,10 @@ header {
         width:          80px;
         padding-right:  20px;
         text-align:     right;
-        color:          mix($color-faint, $body-bg, 50%);
+        color:          mix($color-faint, $body-bg, 32%);
         position:       absolute;
         left:           -100px;
+        letter-spacing: 1px;
     }
 }
 
@@ -138,7 +161,48 @@ header {
     margin-top:     2em;
     font-size:      0.75em;
     text-align:     center;
-    color:          lighten($color-faint, 32%);
+    color:          lighten($color-faint, 36%);
     font-family:    "Source Code Pro", "Monaco", monospace;
 }
+
+#outbound {
+    position:   absolute;
+    right:      0;
+    top:        50%;
+    margin-top: -18px;
+
+    li {
+        display:    inline;
+    
+        i {
+            display:    none;
+        }
+
+        a {
+            @include inline-block;
+
+            width:                  16px;
+            height:                 16px;
+            margin-left:            8px;
+
+            background-position:    center center;
+            background-repeat:      no-repeat;
+
+            &:hover {
+                @include _transition(top 0.2s);
+                @include box-shadow(0 2px 8px -3px rgba(#000, 0.6));
+
+                padding-top:    -3px;
+                position:       relative;
+                top:            -2px;
+            }
+        }
+    }
+}
+
+
+#nav-tw a { background-image: url(/assets/img/twitter.png) }
+#nav-gh a { background-image: url(/assets/img/github.png) }
+#nav-dr a { background-image: url(/assets/img/dribbble.png) }
+
 

@@ -15,7 +15,6 @@ from glob import glob
 DATE_FORMAT = '%a %b %d %H:%M:%S %Y'
 scss.LOAD_PATHS = [config.compass_path]
 
-
 def _unslug(slug):
     return slug.replace('-', ' ').title()
 
@@ -80,6 +79,10 @@ def build():
         with open(join('_public', 'style.css'), 'w') as output:
             output.write(css)
 
+    def copy_assets():
+        shutil.rmtree('_public/assets')
+        shutil.copytree('assets', '_public/assets')
+
     posts = glob('posts/*.md')
     env = Environment(loader=FileSystemLoader('_template'))
     tpl_single = env.get_template('single.html')
@@ -94,12 +97,12 @@ def build():
         chron_order.append((slug, headers[slug]['Date']))
         render_single(slug, md)
 
-    chron_order = sorted(chron_order, key=lambda tup: tup[1])
+    chron_order = sorted(chron_order, key=lambda tup: tup[1], reverse=True)
     render_index()
     render_css()
+    copy_assets()
     print("BUILT!")
     
-
 
 @cli.command
 def deploy():

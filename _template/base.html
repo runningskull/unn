@@ -11,7 +11,18 @@
 <body>
     <div id="wrapper">
         <header>
-            <h1><a id="go-home" href="/">Hi, I'm J.R.</a></h1>
+            <h1><a id="go-home" href="/" title="I write things here.">Hi, I'm J.R.</a></h1>
+
+            <nav id="outbound">
+                <ul>
+                    <li id="nav-tw">
+                        <a href="https://twitter.com/runningskull"><i>Twitter</i></a></li>
+                    <li id="nav-gh">
+                        <a href="https://github.com/runningskull"><i>GitHub</i></a></li>
+                    <li id="nav-dr">
+                        <a href="http://dribbble.com/runningskull"><i>Dribbble</i></a></li>
+                </ul>
+            </nav>
         </header>
 
         {% block content %}{% endblock %}
