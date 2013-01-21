@@ -7,7 +7,7 @@
     <ul id="post-list">
     {% for post in posts %}
         <li>
-            <small>{{ post.Date.strftime('%d/%m/%y') }}</small>
+            <small>{{ post.Date.strftime('%m/%d/%y') }}</small>
             <a href="/{{ post.Slug }}.html">{{ post.Title }}</a>
         </li>
     {% endfor %}
