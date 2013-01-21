@@ -28,6 +28,10 @@ def _ask_for_draft():
     print '\n'.join([' '.join(x) for x in zip(rng, slugs)])
     return slugs[int(raw_input('Which draft? '))]
 
+def _edit_file(filename):
+    cmd = config.editor.format(join(os.getcwd(), filename))
+    subprocess.call(cmd, shell=True)
+
 
 @cli.command
 def draft(slug):
@@ -44,8 +48,16 @@ def draft(slug):
     filename = 'drafts/{}.md'.format(slug)
     with open(filename, 'w') as _draft:
         _draft.write(content)
-    cmd = config.editor.format(join(os.getcwd(), filename))
-    subprocess.call(cmd, shell=True)
+    _edit_file(filename)
+
+@cli.command
+def edit(slug=None):
+    slug = slug or _ask_for_draft()
+
+    if not exists(join('drafts', slug+'.md')):
+        cli.EXIT('No draft by that name!')
+
+    _edit_file('drafts/{}.md'.format(slug))
 
 
 @cli.command
