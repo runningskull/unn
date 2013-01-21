@@ -21,6 +21,13 @@ def _unslug(slug):
 def _extract_title(body_md):
     return body_md.split('\n', 1)[0]
 
+def _ask_for_draft():
+    slugs = [g.replace('drafts/', '').replace('.md', '') 
+             for g in glob('drafts/*.md')]
+    rng = ['[{}]'.format(x) for x in range(len(slugs))]
+    print '\n'.join([' '.join(x) for x in zip(rng, slugs)])
+    return slugs[int(raw_input('Which draft? '))]
+
 
 @cli.command
 def draft(slug):
@@ -42,7 +49,9 @@ def draft(slug):
 
 
 @cli.command
-def publish(slug):
+def publish(slug=None):
+    slug = slug or _ask_for_draft()
+
     if not exists('drafts/{}.md'.format(slug)):
         cli.EXIT('No draft by that name!')
 
