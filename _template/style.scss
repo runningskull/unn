@@ -1,7 +1,7 @@
 @import "compass";
 @import "compass/reset";
 
-$body-bg:   #fcfcfd;
+$body-bg:   #fdfdfe;
 $font-head: "apertura", Helvetica, sans-serif;
 $font-body: "freight-text-pro", Georgia, serif;
 
@@ -10,7 +10,7 @@ $width:     800px;
 $weight-heading:    700;
 $weight-normal:     400;
 
-$color-head:    saturate(lighten(#161D25, 8%), 30%);
+$color-head:    saturate(lighten(#161D25, 8%), 0%);
 $color-body:    #334;
 $color-faint:   mix($color-head, $body-bg, 50%);
 
@@ -44,6 +44,23 @@ h1 {
     @include text-shadow(1px 1px 0 #fff);
     font-size:      2em;
     word-spacing:   3px;
+}
+
+h2 {
+    font-size:      1.375em;
+    word-spacing:   2px;
+    margin-top:     1em;
+    margin-bottom:  0.25em;
+}
+
+h3 {
+    font-size:      1em;
+    word-spacing:   1px;
+    margin-top:     1em;
+}
+
+p {
+    margin-bottom:  1em;
 }
 
 img {
