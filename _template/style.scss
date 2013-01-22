@@ -59,6 +59,15 @@ h3 {
     margin-top:     1em;
 }
 
+h6 {
+    font-size:      3em;
+    color:          mix($color-faint, $body-bg, 8%);
+    text-align:     center;
+    letter-spacing: 3px;
+    word-spacing:   12px;
+    font-weight:    500;
+}
+
 p {
     margin-bottom:  1em;
 }
