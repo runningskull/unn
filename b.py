@@ -10,7 +10,6 @@ from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 from os.path import exists, join
 from glob import glob
-from boto.s3.key import Key
 
 
 DATE_FORMAT = '%a %b %d %H:%M:%S %Y'
@@ -124,7 +123,8 @@ def build():
 
 @cli.command
 def deploy():
-    pass
+    build()
+    subprocess.call(config.deploy_command, shell=True)
 
 
 if __name__ == '__main__':
