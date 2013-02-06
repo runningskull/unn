@@ -1,18 +1,22 @@
 @import "compass";
-@import "compass/reset";
+@import "reset";
 
 $body-bg:   #fdfdfe;
 $font-head: "apertura", Helvetica, sans-serif;
 $font-body: "freight-text-pro", Georgia, serif;
+$font-body: "ff-tisa-web-pro", Georgia, serif;
+$font-mono: "source-code-pro", "Courier New", monospace;
 
-$width:     800px;
+$width-wrapper: 640px;
 
 $weight-heading:    700;
 $weight-normal:     400;
 
 $color-head:    saturate(lighten(#161D25, 8%), 0%);
-$color-body:    #334;
+$color-body:    #393949;
 $color-faint:   mix($color-head, $body-bg, 50%);
+
+$font-size:     21px;
 
 
 @mixin _transition($arg) {
@@ -27,9 +31,9 @@ body {
     background:     $body-bg url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAIElEQVQIW2P8DwSMQMAABWA+iA2TgNGoKqA6sKvEZiYAYjkj/opu0ZUAAAAASUVORK5CYII=);
     font-family:    $font-body;
     font-weight:    $weight-normal;
-    font-size:      23px;
+    font-size:      $font-size;
     color:          $color-body;
-    line-height:    1.5em;
+    line-height:    1.6em;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -68,14 +72,47 @@ h6 {
     font-weight:    500;
 }
 
+a {
+    $color: mix(#0000ff, $color-body, 48%);
+
+    color:  $color;
+
+    &:hover {
+        color:  darken($color, 0.2);
+    }
+}
+
 p {
-    margin-bottom:  1em;
+    margin-bottom:  1.25em;
+}
+
+ol, ul {
+    margin: 1.5em 0 2em 2.5em;
 }
 
 img {
     max-width:      $width;
     margin-top:     1em;
     margin-bottom:  1em;
+}
+
+strong, b {
+    font-weight:    700;
+}
+
+code {
+    @include border-radius(4px);
+    font-family:    $font-mono;
+    font-size:      0.875em;
+    font-style:     normal;
+    background:     #eeeef8;
+    padding:        0 0.35em;
+    border:         1px solid #ddd;
+}
+
+small {
+    font-size:  0.75em;
+    font-style: italic;
 }
 
 header {
@@ -134,19 +171,21 @@ header {
 }
 
 #wrapper {
-    width:      800px;
+    width:      $width-wrapper;
     margin:     0 auto;
     overflow:   visible;
 }
 
 #post {
     h1 {
-        margin-bottom:  0.5em;
+        margin-bottom:  0.75em;
     }
 }
 
 #post-list {
     overflow:   visible;
+    list-style: none;
+    margin: 0;
 
     li {
         margin-bottom:  0.75em;
@@ -157,20 +196,22 @@ header {
 
     a {
         font-family:        $font-head;
-        font-weight:        500;
+        font-weight:        600;
         font-size:          1.35em;
         color:              $color-head;
         border-bottom:      1px dashed mix($color-head, $body-bg, 20%);
         text-decoration:    none;
 
         &:hover {
-            border-style:           solid;
+            border-style:   solid;
+            border-color:   mix($color-head, $body-bg, 50%);
         }
     }
 
     small {
         @include inline-block;
         font-size:      0.75em;
+        font-style:     normal;
         width:          80px;
         padding-right:  20px;
         text-align:     right;
@@ -187,7 +228,7 @@ header {
     margin-top:     2em;
     font-size:      0.75em;
     text-align:     center;
-    color:          lighten($color-faint, 36%);
+    color:          lighten($color-faint, 24%);
     font-family:    "Source Code Pro", "Monaco", monospace;
 }
 
@@ -196,6 +237,10 @@ header {
     right:      0;
     top:        50%;
     margin-top: -18px;
+
+    ul {
+        margin: 0;
+    }
 
     li {
         display:    inline;
@@ -223,6 +268,40 @@ header {
                 top:            -2px;
             }
         }
+    }
+}
+
+#comments {
+    @include border-radius(8px);
+
+    margin:     2em auto;
+    padding:    1em ($font-size * 2);
+    width:      $width-wrapper - ($font-size * 4) - 6px;
+    border:     3px dashed mix($color-faint, #fff, 20%);
+
+    &.closed:hover {
+        background: rgba(#00f, 0.03);
+    }
+}
+
+#comments-show {
+    display:            block;
+    text-align:         center;
+    text-transform:     uppercase;
+    text-decoration:    none;
+    color:              mix($color-faint, #fff, 75%);
+    font-family:        $font-head;
+
+    &:hover {
+        text-decoration:    underline;
+        color:              $color-faint;
+    }
+}
+
+#comments-inner, #comments-show {
+    &.hidden {
+        position:   absolute;
+        top:        -9999px;
     }
 }
 

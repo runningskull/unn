@@ -13,7 +13,7 @@ from glob import glob
 
 
 DATE_FORMAT = '%a %b %d %H:%M:%S %Y'
-scss.LOAD_PATHS = [config.compass_path]
+scss.LOAD_PATHS = ['_template', config.compass_path]
 
 def _unslug(slug):
     return slug.replace('-', ' ').title()
@@ -21,12 +21,12 @@ def _unslug(slug):
 def _extract_title(body_md):
     return body_md.split('\n', 1)[0]
 
-def _ask_for_draft():
-    slugs = [g.replace('drafts/', '').replace('.md', '') 
-             for g in glob('drafts/*.md')]
+def _ask_for_idea():
+    slugs = [g.replace('ideas/', '').replace('.md', '') 
+             for g in glob('ideas/*.md')]
     rng = ['[{}]'.format(x) for x in range(len(slugs))]
     print '\n'.join([' '.join(x) for x in zip(rng, slugs)])
-    return slugs[int(raw_input('Which draft? '))]
+    return slugs[int(raw_input('Which idea? '))]
 
 def _edit_file(filename):
     cmd = config.editor.format(join(os.getcwd(), filename))
@@ -34,43 +34,34 @@ def _edit_file(filename):
 
 
 @cli.command
-def draft(slug):
+def idea(slug):
     _exists = lambda folder: exists('{}/{}.md'.format(folder, slug))
 
-    if _exists('drafts') or _exists('posts'):
+    if _exists('ideas') or _exists('posts'):
         cli.EXIT('That slug already exists!')
 
-    content = open('_template/_new_draft.md').read().format(
+    content = open('_template/_new_idea.md').read().format(
         date = datetime.now().strftime(DATE_FORMAT),
         title = _unslug(slug)
     )
 
-    filename = 'drafts/{}.md'.format(slug)
-    with open(filename, 'w') as _draft:
-        _draft.write(content)
+    filename = 'ideas/{}.md'.format(slug)
+    with open(filename, 'w') as _idea:
+        _idea.write(content)
     _edit_file(filename)
-
-@cli.command
-def edit(slug=None):
-    slug = slug or _ask_for_draft()
-
-    if not exists(join('drafts', slug+'.md')):
-        cli.EXIT('No draft by that name!')
-
-    _edit_file('drafts/{}.md'.format(slug))
 
 
 @cli.command
 def publish(slug=None):
-    slug = slug or _ask_for_draft()
+    slug = slug or _ask_for_idea()
 
-    if not exists('drafts/{}.md'.format(slug)):
-        cli.EXIT('No draft by that name!')
+    if not exists('ideas/{}.md'.format(slug)):
+        cli.EXIT('No idea by that name!')
 
     if exists('posts/{}.md'.format(slug)):
         cli.EXIT('That post already exists!')
 
-    shutil.move('drafts/{}.md'.format(slug), 'posts/{}.md'.format(slug))
+    shutil.move('ideas/{}.md'.format(slug), 'posts/{}.md'.format(slug))
     build()
 
 
@@ -88,7 +79,8 @@ def build():
         return head, md
 
     def render_single(slug, md):
-        ctx = dict(headers[slug], **{'post_html': markdown(md)})
+        ctx = dict(headers[slug], 
+                   **{'post_html': markdown(md, extensions=['smartypants'])})
         write_file(slug, tpl_single.render(ctx))
 
     def render_index():
