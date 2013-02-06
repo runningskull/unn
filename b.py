@@ -10,6 +10,7 @@ from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 from os.path import exists, join
 from glob import glob
+from boto.s3.key import Key
 
 
 DATE_FORMAT = '%a %b %d %H:%M:%S %Y'
@@ -87,6 +88,9 @@ def build():
         ctx = {'posts': [dict(headers[x[0]], **{'Slug':x[0]}) for x in chron_order]}
         write_file('index', tpl_index.render(ctx))
 
+    def render_error():
+        write_file('error', env.get_template('error.html').render())
+
     def render_css():
         css = scss.Scss().compile(open(join('_template', 'style.scss')).read())
         with open(join('_public', 'style.css'), 'w') as output:
@@ -112,6 +116,7 @@ def build():
 
     chron_order = sorted(chron_order, key=lambda tup: tup[1], reverse=True)
     render_index()
+    render_error()
     render_css()
     copy_assets()
     print("BUILT!")

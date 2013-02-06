@@ -4,7 +4,8 @@
 $body-bg:   #fdfdfe;
 $font-head: "apertura", Helvetica, sans-serif;
 $font-body: "freight-text-pro", Georgia, serif;
-$font-body: "ff-tisa-web-pro", Georgia, serif;
+/*$font-body: "ff-tisa-web-pro", Georgia, serif;*/
+$font-body: "garvis-pro", Helvetica, serif;
 $font-mono: "source-code-pro", "Courier New", monospace;
 
 $width-wrapper: 640px;
@@ -48,6 +49,7 @@ h1 {
     @include text-shadow(1px 1px 0 #fff);
     font-size:      2em;
     word-spacing:   3px;
+    line-height:    1.3em;
 }
 
 h2 {
@@ -87,7 +89,7 @@ p {
 }
 
 ol, ul {
-    margin: 1.5em 0 2em 2.5em;
+    margin: 1.5em 0 2em 2em;
 }
 
 img {
@@ -178,7 +180,7 @@ header {
 
 #post {
     h1 {
-        margin-bottom:  0.75em;
+        margin-bottom:  0.5em;
     }
 }
 
@@ -303,6 +305,15 @@ header {
         position:   absolute;
         top:        -9999px;
     }
+}
+
+#err-home {
+    display:        block;
+    padding-top:    1em;
+}
+
+#err-small {
+    @include opacity(0.7);
 }
 
 
