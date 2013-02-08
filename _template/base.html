@@ -9,8 +9,8 @@
 </head>
 
 <body>
-    <div id="wrapper">
-        <header>
+    <header>
+        <div class="wrapper">
             <h1><a id="go-home" href="/" title="I write things here.">Hi, I'm J.R.</a></h1>
 
             <nav id="outbound">
@@ -23,8 +23,10 @@
                         <a href="http://dribbble.com/runningskull"><i>Dribbble</i></a></li>
                 </ul>
             </nav>
-        </header>
+        </div>
+    </header>
 
+    <div class="wrapper">
         {% block content %}{% endblock %}
 
         <footer id="bottom">
@@ -35,6 +37,7 @@
     <script>
         setTimeout(function() {
             document.getElementById('go-home').className = 'fade'
+            document.getElementById('outbound').className = 'fade'
         }, 5000);
     </script>
     {% block scripts %}{% endblock %}

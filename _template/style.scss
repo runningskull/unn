@@ -3,8 +3,6 @@
 
 $body-bg:   #fdfdfe;
 $font-head: "apertura", Helvetica, sans-serif;
-$font-body: "freight-text-pro", Georgia, serif;
-/*$font-body: "ff-tisa-web-pro", Georgia, serif;*/
 $font-body: "garvis-pro", Helvetica, serif;
 $font-mono: "source-code-pro", "Courier New", monospace;
 
@@ -113,14 +111,15 @@ code {
 }
 
 small {
-    font-size:  0.75em;
-    font-style: italic;
+    font-size:      0.75em;
+    font-style:     italic;
+    font-family:    $font-head;
 }
 
 header {
     @include box-shadow(0 1px 0 #fff);
 
-    margin:         1em 0 2.5em 0;
+    margin:         0.5em 0 2.5em 0;
     font-size:      0.75em;
     border-bottom:  1px solid #eee;
     overflow:       visible;
@@ -170,9 +169,13 @@ header {
             }
         }
     }
+
+    .wrapper {
+        position:   relative;
+    }
 }
 
-#wrapper {
+.wrapper {
     width:      $width-wrapper;
     margin:     0 auto;
     overflow:   visible;
@@ -187,7 +190,7 @@ header {
 #post-list {
     overflow:   visible;
     list-style: none;
-    margin: 0;
+    margin:     0;
 
     li {
         margin-bottom:  0.75em;
@@ -218,9 +221,13 @@ header {
         padding-right:  20px;
         text-align:     right;
         color:          mix($color-faint, $body-bg, 32%);
+
         position:       absolute;
-        left:           -100px;
+        left:           -94px;
+        bottom:         1.25em;
+
         letter-spacing: 1px;
+        line-height:    1em;
     }
 }
 
@@ -239,6 +246,11 @@ header {
     right:      0;
     top:        50%;
     margin-top: -18px;
+
+    &.fade {
+        @include _transition(opacity 1s);
+        opacity:    0.2;
+    }
 
     ul {
         margin: 0;
