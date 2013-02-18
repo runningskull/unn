@@ -11,7 +11,7 @@
 <body>
     <header>
         <div class="wrapper">
-            <h1><a id="go-home" href="/" title="I write things here.">Hi, I'm J.R.</a></h1>
+            <h1><a id="go-home" href="/" title="I write things here.">I'm J.R.</a></h1>
 
             <nav id="outbound">
                 <ul>
@@ -26,13 +26,11 @@
         </div>
     </header>
 
-    <div class="wrapper">
-        {% block content %}{% endblock %}
+    {% block content %}{% endblock %}
 
-        <footer id="bottom">
-            &gt; /dev/null
-        </footer>
-    </div>
+    <footer id="bottom">
+        &gt; /dev/null
+    </footer>
 
     <script>
         setTimeout(function() {

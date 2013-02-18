@@ -13,7 +13,7 @@ $weight-normal:     400;
 
 $color-head:    saturate(lighten(#161D25, 8%), 0%);
 $color-body:    #393949;
-$color-faint:   mix($color-head, $body-bg, 50%);
+$color-faint:   mix(saturate($color-head, 30%), $body-bg, 50%);
 
 $font-size:     21px;
 
@@ -45,7 +45,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     @include text-shadow(1px 1px 0 #fff);
-    font-size:      2em;
+    font-size:      2.25em;
     word-spacing:   3px;
     line-height:    1.3em;
 }
@@ -117,12 +117,13 @@ small {
 }
 
 header {
-    @include box-shadow(0 1px 0 #fff);
+    @include box-shadow(0 2px 0 #fff);
 
-    margin:         0.5em 0 2.5em 0;
+    margin:         0 0 2.5em 0;
     font-size:      0.75em;
-    border-bottom:  1px solid #eee;
     overflow:       visible;
+
+    border-bottom:  1px solid mix($body-bg, $color-faint, 90%);
 
     position:       relative;
 
@@ -142,7 +143,7 @@ header {
             }
 
             &:hover, &.fade:hover {
-                @include _transition(color 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955));
+                @include _transition(color 0.15s cubic-bezier(0.455, 0.030, 0.515, 0.955));
 
                 color:              $color-head;
                 text-decoration:    underline;
@@ -179,6 +180,7 @@ header {
     width:      $width-wrapper;
     margin:     0 auto;
     overflow:   visible;
+    display:    block;
 }
 
 #post {
@@ -190,13 +192,17 @@ header {
 #post-list {
     overflow:   visible;
     list-style: none;
-    margin:     0;
+    margin:     -1.875em 0 -1.5em 0;
 
     li {
-        margin-bottom:  0.75em;
-        padding-bottom: 0.675em;
         position:       relative;
         overflow:       visible;
+
+        border-bottom:  1px solid mix($body-bg, $color-faint, 80%);
+
+        &:last-child {
+            border-bottom:  none;
+        }
     }
 
     a {
@@ -204,12 +210,15 @@ header {
         font-weight:        600;
         font-size:          1.35em;
         color:              $color-head;
-        border-bottom:      1px dashed mix($color-head, $body-bg, 20%);
         text-decoration:    none;
+        display:            block;
+
+        padding-bottom: 1.25em;
+        padding-top:    1.325em;
 
         &:hover {
-            border-style:   solid;
-            border-color:   mix($color-head, $body-bg, 50%);
+            background:     rgba(saturate($color-head, 100%), 0.015);
+            text-decoration:    underline;
         }
     }
 
