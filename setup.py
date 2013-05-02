@@ -5,7 +5,7 @@ requires = [' (=='.join(x.split('==')) + ')' for x in requires if x]
 
 setup(
     name = 'unn',
-    version = '0.0.6',
+    version = '0.0.7',
     packages = ['unn',],
     scripts = ['unn/unn'],
     license = 'MIT',
