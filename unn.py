@@ -99,6 +99,9 @@ def build():
         shutil.rmtree('_public/assets')
         shutil.copytree('assets', '_public/assets')
 
+    if not os.path.exists('_public/assets'):
+        os.makedirs('_public/assets')
+
     posts = glob('posts/*.md')
     env = Environment(loader=FileSystemLoader('_template'))
     tpl_single = env.get_template('single.html')
