@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name = 'unn',
-    version = '0.0.4',
+    version = '0.0.5',
     packages = ['unn',],
     scripts = ['unn/unn'],
     license = 'MIT',
