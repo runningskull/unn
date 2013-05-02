@@ -1,6 +1,7 @@
 from distutils.core import setup
 
 requires = open('requirements.txt').read().split('\n')
+requires = [' (=='.join(x.split('==')) + ')' for x in requires if x]
 
 setup(
     name = 'unn',
