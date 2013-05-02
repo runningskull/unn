@@ -16,7 +16,7 @@ def command(fn):
 
 def run():
     if len(sys.argv) < 2:
-        EXIT('No command provided')
+        EXIT('Valid commands are:\n ' + '\n '.join(commands))
 
     cmd = sys.argv[1]
 
