@@ -15,6 +15,12 @@ from glob import glob
 DATE_FORMAT = '%a %b %d %H:%M:%S %Y'
 scss.LOAD_PATHS = ['_template', config.compass_path]
 
+def _ensure_boilerplate():
+    paths = ['_public', '_public/assets', '_template', '_template/assets',
+             'ideas', 'posts']
+    for p in paths:
+        if not os.path.exists(p): os.makedirs(p)
+
 def _unslug(slug):
     return slug.replace('-', ' ').title()
 
@@ -97,10 +103,7 @@ def build():
 
     def copy_assets():
         shutil.rmtree('_public/assets')
-        shutil.copytree('assets', '_public/assets')
-
-    if not os.path.exists('_public/assets'):
-        os.makedirs('_public/assets')
+        shutil.copytree('_template/assets', '_public/assets')
 
     posts = glob('posts/*.md')
     env = Environment(loader=FileSystemLoader('_template'))
@@ -144,6 +147,7 @@ def deploy():
 
 
 if __name__ == '__main__':
+    _ensure_boilerplate()
     cli.run()
 
 
