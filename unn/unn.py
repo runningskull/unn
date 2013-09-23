@@ -22,7 +22,7 @@ def _extract_title(body_md):
     return body_md.split('\n', 1)[0]
 
 def _ask_for_idea():
-    slugs = [g.replace('ideas/', '').replace('.md', '') 
+    slugs = [g.replace('ideas/', '').replace('.md', '')
              for g in glob('ideas/*.md')]
     rng = ['[{}]'.format(x) for x in range(len(slugs))]
     print '\n'.join([' '.join(x) for x in zip(rng, slugs)])
@@ -79,7 +79,7 @@ def build():
         return head, md
 
     def render_single(slug, md):
-        ctx = dict(headers[slug], 
+        ctx = dict(headers[slug],
                    **{'post_html': markdown(md, extensions=['smartypants'])})
         write_file(slug, tpl_single.render(ctx))
 
@@ -122,7 +122,20 @@ def build():
     render_css()
     copy_assets()
     print("BUILT!")
-    
+
+@cli.command
+def local(port=8000):
+    build()
+
+    import os; os.chdir('_public')
+    import SimpleHTTPServer
+    import SocketServer
+
+    Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+    httpd = SocketServer.TCPServer(("", int(port)), Handler)
+
+    print "Serving at port", port
+    httpd.serve_forever()
 
 @cli.command
 def deploy():
