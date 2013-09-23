@@ -10,8 +10,6 @@ from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 from os.path import exists, join
 from glob import glob
-import SimpleHTTPServer
-import SocketServer
 
 
 DATE_FORMAT = '%a %b %d %H:%M:%S %Y'
@@ -131,10 +129,8 @@ def build():
 @cli.command
 def local(port=8000):
     build()
-    import os; os.chdir('_public')
-    print "Serving at port", port 
-    httpd = SocketServer.TCPServer(("", int(port)), SimpleHTTPServer.SimpleHTTPRequestHandler).serve_forever()
-
+    subprocess.call('pushd _public && python -m SimpleHTTPServer %s && popd' % port, shell=True)
+    
 @cli.command
 def deploy():
     build()
