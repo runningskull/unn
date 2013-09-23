@@ -4,7 +4,7 @@ import logging
 logging.getLogger('scss').addHandler(logging.StreamHandler())
 
 import os, sys, shutil, subprocess, scss
-import cli, config
+from unn import cli, config
 from markdown import markdown
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
