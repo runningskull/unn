@@ -4,7 +4,7 @@ requires = open('requirements.txt').read().split('\n')
 
 setup(
     name = 'unn',
-    version = '0.0.8',
+    version = '0.0.9',
     packages = ['unn',],
     scripts = ['unn/unn'],
     license = 'MIT',
