@@ -9,5 +9,6 @@ setup(
     scripts = ['unn/unn'],
     license = 'MIT',
     install_requires = requires,
+    description = "The most minimal blog engine you've never heard of",
     long_description = open('README.md').read(),
 )
