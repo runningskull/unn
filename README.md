@@ -1,4 +1,4 @@
-_I wrote about [my reasoning](http://www.juanpatten.com/first-post.html_
+_I wrote about [my reasoning](http://www.juanpatten.com/first-post.html)_
 
 ## Start your blog
 
@@ -12,7 +12,7 @@ _I wrote about [my reasoning](http://www.juanpatten.com/first-post.html_
 ## Use it day-to-day
 
 `unn idea my-idea` to start a new draft. Use markdown for formatting.  
-`unn publish my-idea` to converta  draft to a post.  
+`unn publish my-idea` to convert a draft to a post.  
 `unn build` to build your site's pages.  
 `unn local` to serve it locally.  
 `unn deploy` to push it live. (this will build first, as a convenience)
